@@ -273,3 +273,4 @@ int main (int argc, char *argv[])
 
    mostrar_raiz(resto, solucion);
 }
+
