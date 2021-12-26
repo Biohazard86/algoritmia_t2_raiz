@@ -137,11 +137,11 @@ int dividir_parejas(int numero, int *numero_array,int tamano_array){
 
 
 //Busca el numero mas cercano que multiplicado por si mismo de ese otro numero
-int busca_cercano(int numero){
+int busca_cercano(int *numero){
     int i;
-    for(i=0; i<numero; i++){
-        if((i*i) >= numero){
-            printf ("\n%d\n",i);
+    for(i=0; i<*numero; i++){
+        if((i*i) >= *numero){
+            //printf ("\n%d\n",i-1);
             return i-1;
         }
             
@@ -150,8 +150,8 @@ int busca_cercano(int numero){
 }
 
 //Funcion que calcula el cuadrado de un numero
-int calcula_cuadrado(int n){
-    return n*n;
+int calcula_cuadrado(int *n){
+    return (*n)*(*n);
 }
 
 
@@ -169,7 +169,7 @@ int busca_n(int doble_solucion, int resto){
 
 int calcula_raiz(int numero, int *numero_array, int *resto, int *solucion, int tamano_array){
 
-    int i=0, raiz_cercana, numero_parejas, continuar = 1, cuadrado, doble_solucion, n;
+    int i=0, raiz_cercana, numero_parejas, continuar = 1, cuadrado, doble_solucion, n, temporal;
     
 
     //Dividimos al numero en parejas de dos empezando por la izquierda, lo guardamos en un array
@@ -177,34 +177,44 @@ int calcula_raiz(int numero, int *numero_array, int *resto, int *solucion, int t
     //Vamos a empezar a calcular, buscamos el numero que multiplicado por si mismo nos de el numero mas parecido al primero del array y lo guardamos en la solucion
     (*resto) = numero_array[0];
     
-    printf ("\n!!!\n");
+    printf ("Se procede a calcular la raiz.\n");
     
     printf ("\n%d\n",(*resto));
 
-    (*solucion) = busca_cercano((*resto));          //2
+    temporal = busca_cercano(resto);          //2
+    // Guardamos temporal en la solucion
+    solucion = &temporal; 
+    // Imprimimos la solucion
+    printf ("\nTemporal: %d\n", *solucion);
+
     
-    printf ("\n!!!\n");
+    
+    
 
 
 
     //Hacemos el cuadrado de la solucion para restarselo al numero que hemos sacado del array
-    cuadrado = calcula_cuadrado((*solucion));          //3
+    cuadrado = calcula_cuadrado(solucion);          //3
+    // Imprimimos el cuadrado de la solucion
+    //printf ("\nCuadrado: %d\n", cuadrado);
     
    
     
     (*resto) = (*resto) - cuadrado;             //4
 
+    
 
     while(continuar){
 
         // Con el doble_solucion de la solucino nos vamos a la parte auxiliar 
-        doble_solucion = (*solucion) *2;                            //4
+        doble_solucion = (*solucion)*2;                            //4
+        
         // Concatenamos la siguiente pareja de numeros
-        (*resto) = concatenate((*resto), numero_array[i+1]);     //5
+        (*resto) = concatenate(resto, numero_array[i+1]);     //5
         //Buscamos un numero que sea de la forma solucion*2 _ x_ menor que el resto
         n = busca_n(doble_solucion, (*resto));                          //6
         // Concatenamos el numero encontrado con la solucino
-        (*solucion) = concatenate( (*solucion), n);                          //7
+        (*solucion) = concatenate( solucion, n);                          //7
         // Le restamos al resto doble_solucion concatenado con n x n
         (*resto) = (*resto) - (concatenate(doble_solucion, n)*n);                    
 
