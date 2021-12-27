@@ -139,11 +139,17 @@ int dividir_parejas(int numero, int *numero_array,int tamano_array){
 //Busca el numero mas cercano que multiplicado por si mismo de ese otro numero
 int busca_cercano(int *numero){
     int i;
-    for(i=0; i<*numero; i++){
-        if((i*i) >= *numero){
-            //printf ("\n%d\n",i-1);
+    printf ("\n%d\n",(*numero));
+    for(i=0; i<=*numero; i++){
+        printf ("\n%d\n",i);
+        if((i*i) > *numero && *numero != 1){
+            printf ("\n%d\n",i);
             return i-1;
         }
+        else if(*numero == 1)
+        {
+            return 1;
+        }     
             
     }
     printf("No devuelve nada");  
@@ -166,6 +172,11 @@ int busca_n(int doble_solucion, int resto){
 
 }
 
+void mostrar_raiz(int resto, int solucion){
+    printf("\nsolucion: %d\n", solucion);
+    printf("RESTO: %d\n", resto );
+}
+
 
 int calcula_raiz(int numero, int *numero_array, int *resto, int *solucion, int tamano_array){
 
@@ -179,7 +190,7 @@ int calcula_raiz(int numero, int *numero_array, int *resto, int *solucion, int t
     
     printf ("Se procede a calcular la raiz.\n");
     
-    printf ("\n%d\n",(*resto));
+    //printf ("\n%d\n",(*resto));
 
     temporal = busca_cercano(resto);          //2
     // Guardamos temporal en la solucion
@@ -196,13 +207,16 @@ int calcula_raiz(int numero, int *numero_array, int *resto, int *solucion, int t
     //Hacemos el cuadrado de la solucion para restarselo al numero que hemos sacado del array
     cuadrado = calcula_cuadrado(solucion);          //3
     // Imprimimos el cuadrado de la solucion
-    //printf ("\nCuadrado: %d\n", cuadrado);
+    printf ("\nCuadrado: %d\n", cuadrado);
     
    
     
     (*resto) = (*resto) - cuadrado;             //4
-
-    
+    printf ("\n%d\n",(*resto));
+    i++;
+    if(i >= numero_parejas){
+            continuar = 0;
+    }
 
     while(continuar){
 
@@ -210,11 +224,13 @@ int calcula_raiz(int numero, int *numero_array, int *resto, int *solucion, int t
         doble_solucion = (*solucion)*2;                            //4
         
         // Concatenamos la siguiente pareja de numeros
-        (*resto) = concatenate(resto, numero_array[i+1]);     //5
+        (*resto) = concatenate((*resto), numero_array[i]);     //5
+        printf ("\nNuevo resto:%d\n",(*resto));
         //Buscamos un numero que sea de la forma solucion*2 _ x_ menor que el resto
         n = busca_n(doble_solucion, (*resto));                          //6
         // Concatenamos el numero encontrado con la solucino
-        (*solucion) = concatenate( solucion, n);                          //7
+        (*solucion) = concatenate((*solucion), n);                          //7
+        printf ("\n%d\n",(*solucion));
         // Le restamos al resto doble_solucion concatenado con n x n
         (*resto) = (*resto) - (concatenate(doble_solucion, n)*n);                    
 
@@ -222,21 +238,22 @@ int calcula_raiz(int numero, int *numero_array, int *resto, int *solucion, int t
 
 
         //Incrementamos la iteracion
-        i++;
+        
         // Condicion de parada
-        if(i == numero_parejas-1){
+        i++;
+        if(i >= numero_parejas){
             continuar = 0;
         }
+        
     }
 
+    mostrar_raiz((*resto),(*solucion));
+
 
 }
 
 
-void mostrar_raiz(int *resto, int *solucion){
-    printf("solucion: %d", (*resto));
-    printf("RESTO: %d", (*solucion));
-}
+
 
 int comprobar_num(int numero){
 
@@ -264,6 +281,7 @@ int main (int argc, char *argv[])
         return 1;
     }
 
+
     tamano_array=calculo_array(numero);
     numero_array=(int *) calloc (tamano_array, sizeof (int));
     
@@ -271,6 +289,6 @@ int main (int argc, char *argv[])
     
 
 
-   mostrar_raiz(resto, solucion);
+   //mostrar_raiz(resto, solucion);
 }
 
