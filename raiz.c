@@ -260,10 +260,97 @@ int comprobar_num(int numero){
 }
 
 
+//Funcion que comprueba el tamanio del numero que tenemso en argv[1]
+int comprueba_tam_numero(char *argv[]){
+    int k;
+    //Comprobamos la longitud del numero
+    while (1){
+        if(argv[1][k] == '\0'){ //Si el caracter es el final de la cadena
+            break;              //Salimos del bucle
+        }
+        else{                   //Si no es el final de la cadena
+            k++;                //Incrementamos el contador
+        }
+    }
+    fprintf(stdout, "Se va a procesar un numero de %d digitos\n", k);
+    return k;                   //Devolvemos el valor de k, es decir, la longitud del numero
+}
+
+
+// Funcion que convierte un string a un array de enteros
+int string_a_array_enteros(char *argv[], int *array_numero, int tamano_array){
+    int i, k, j, numero_temporal;
+    
+
+    //Convertimos el string a un array de enteros
+    i=0;
+    for(j=0; j<tamano_array; j++){
+        
+        
+        // HAcemos un cast de char a int
+        numero_temporal = argv[1][i]-'0';
+        // Guardamos el numero en el array
+        array_numero[j] = numero_temporal;
+        //Imprimimos el numero
+        //printf("El valor de array_numero[%d] es: %d\n", j, array_numero[j]);
+
+        //Incrementamos el contador
+        i++;
+    }
+
+
+}
+
+int longitud_array_numeros(int tamano_array){
+    if(tamano_array%2 == 0){
+        return tamano_array/2;
+    }
+    else{
+        return (tamano_array/2)+1;
+    }
+   
+}
+
+int divide_dos_en_dos(int *numeros_final, int *numeros_inicio, int tam){
+    int i=0, j=0;
+
+    for(i=tam-1; i>-1; i--){
+        if((i-1) >0){
+            numeros_final[i] = numeros_inicio[i-1]*10 + numeros_inicio[i];
+        }
+        else{
+            numeros_final[i] = numeros_inicio[i];
+        }
+        
+    }
+}
+
+
+int imprime_vector(int *array_numero, int tamano_array){
+    int i;
+    //Imprimimos el valor de array_numero
+    printf ("------------------------------\n");
+    printf ("El numero\n");
+    for (i=0; i<tamano_array; i++)
+    {
+        printf ("%d", array_numero[i]);
+    }
+    printf ("\n");
+    printf ("\n");
+    printf ("El numero separado por un espacio en cada caracter\n");
+
+    for (i=0; i<tamano_array; i++)
+    {
+        printf ("%d ", array_numero[i]);
+    }
+    printf ("\n");
+}
+
+
 int main (int argc, char *argv[])
 {
 
-    int  *numero_array, *resto, *solucion, tamano_array;
+    int  *numero_array, *resto, *solucion, tamano_array, *numero_array_temporal;
 
     unsigned long long numero;
     
@@ -282,9 +369,33 @@ int main (int argc, char *argv[])
         return 1;
     }
 
+    // Preparacion de los datos:
 
-    tamano_array=calculo_array(numero);
-    numero_array=(int *) calloc (tamano_array, sizeof (int));
+    fprintf (stderr, "Se procede al calculo.\n");
+    //Vemos la longitud del numero introducido
+    tamano_array = comprueba_tam_numero(argv);
+
+     //fprintf (stderr, "B.\n");
+    //Reservamos memoria para el array
+    numero_array_temporal = (int*) malloc(sizeof(int)*tamano_array);
+    
+    //fprintf (stderr, "C.\n");
+    //Convertimos el string a un array de enteros
+    string_a_array_enteros(argv, numero_array_temporal, tamano_array);
+
+    //Aqui ya tenemos el numero en un array dividido en cifras
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+    //Vamos a dividirlo de dos en dos
+    //Vemos la longitud del array, para ello comprobamos si es par o impar
+
+    numero_array = (int*) malloc(sizeof(int)*longitud_array_numeros(tamano_array));
+
+    divide_dos_en_dos(numero_array, numero_array_temporal, longitud_array_numeros(tamano_array));
+
+    
+    //tamano_array=calculo_array(numero);
+    //numero_array=(int *) calloc (tamano_array, sizeof (int));
     
     calcula_raiz(numero, numero_array, resto, solucion, tamano_array);
     
