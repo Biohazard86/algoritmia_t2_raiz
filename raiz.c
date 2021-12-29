@@ -32,7 +32,7 @@ Vamos a hacer lo siguiente hasta que el array de pares este vacio, es decir, est
 
 
 //Calcula si las cifras del numero es par o no
-int es_par(int numero){
+int es_par(unsigned long long numero){
 
   int cont=0;
 
@@ -60,7 +60,7 @@ unsigned concatenate(unsigned x, unsigned y) {
 }
 
 //Calcula en cuantas parejas de dos se tiene que dividir el numero y en caso de que sea impar el numero de digitos el ultimo que se guarda solo es 1 digito 
-int calculo_array(int numero)
+int calculo_array(unsigned long long numero)
 {
     int numero_parejas=0;
 
@@ -92,7 +92,7 @@ int calculo_array(int numero)
 
 
 //divide el numero de parejas de dos y lo inserta en un array auxiliar para despues darles las vuelta
-int dividir_parejas(int numero, int *numero_array,int tamano_array){
+int dividir_parejas(unsigned long long numero, int *numero_array,int tamano_array){
     
     int numero_parejas=0;
 
@@ -178,7 +178,7 @@ void mostrar_raiz(int resto, int solucion){
 }
 
 
-int calcula_raiz(int numero, int *numero_array, int *resto, int *solucion, int tamano_array){
+int calcula_raiz(unsigned long long numero, int *numero_array, int *resto, int *solucion, int tamano_array){
 
     int i=0, raiz_cercana, numero_parejas, continuar = 1, cuadrado, doble_solucion, n, temporal;
     
@@ -190,7 +190,7 @@ int calcula_raiz(int numero, int *numero_array, int *resto, int *solucion, int t
     
     printf ("Se procede a calcular la raiz.\n");
     
-    //printf ("\n%d\n",(*resto));
+    printf ("\n%d\n",numero_parejas);
 
     temporal = busca_cercano(resto);          //2
     // Guardamos temporal en la solucion
@@ -263,8 +263,9 @@ int comprobar_num(int numero){
 int main (int argc, char *argv[])
 {
 
-    int numero, *numero_array, *resto, *solucion, tamano_array;
+    int  *numero_array, *resto, *solucion, tamano_array;
 
+    unsigned long long numero;
     
     if (argc > 0)
     {
