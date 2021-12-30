@@ -52,7 +52,7 @@ int es_par(unsigned long long numero){
 
 
 //Concatena dos numeros 
-unsigned concatenate(unsigned x, unsigned y) {
+unsigned long long concatenate(unsigned long long x, unsigned long long y) {
     unsigned pow = 10;
     while(y >= pow)
         pow *= 10;
@@ -84,6 +84,7 @@ int calculo_array(unsigned long long numero)
 
         numero = numero / 100;
         numero_parejas++;
+        
 
     }
 
@@ -172,8 +173,8 @@ int busca_n(unsigned long long doble_solucion, unsigned long long resto){
 
 }
 
-void mostrar_raiz(unsigned long long resto, int solucion){
-    printf("\nsolucion: %d\n", solucion);
+void mostrar_raiz(unsigned long long resto, unsigned long long solucion){
+    printf("\nsolucion: %llu\n", solucion);
     printf("RESTO: %llu\n", resto );
 }
 
@@ -237,7 +238,10 @@ int calcula_raiz(int *numero_array, unsigned long long *resto, unsigned long lon
         (*solucion) = concatenate((*solucion), n);                          //7
         printf ("\n%llu\n",(*solucion));
         // Le restamos al resto doble_solucion concatenado con n x n
-        (*resto) = (*resto) - (concatenate(doble_solucion, n)*n);                    
+        printf ("\n%llu-%llu%d*%d\n",(*resto),doble_solucion,n,n);
+
+        (*resto) = (*resto) - (concatenate(doble_solucion, n)*n);  
+        printf ("\nNuevo resto 2:%llu\n",(*resto));                  
 
 
 
