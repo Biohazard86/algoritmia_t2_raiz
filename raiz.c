@@ -161,8 +161,8 @@ int calcula_cuadrado(int *n){
 }
 
 
-int busca_n(int doble_solucion, int resto){
-    int i, concatenacion;
+int busca_n(unsigned long long doble_solucion, unsigned long long resto){
+    unsigned long long i, concatenacion;
     for(i=1; i<=resto; i++){
         concatenacion = concatenate(doble_solucion, i);
         if((concatenacion *i) > resto){
@@ -178,18 +178,23 @@ void mostrar_raiz(int resto, int solucion){
 }
 
 
-int calcula_raiz(unsigned long long numero, int *numero_array, int *resto, int *solucion, int tamano_array){
+int calcula_raiz(int *numero_array, int *resto, int *solucion, int tamano_array){
 
-    int i=0, raiz_cercana, numero_parejas, continuar = 1, cuadrado, doble_solucion, n, temporal;
-    
+    int i=0, raiz_cercana, numero_parejas, continuar = 1, cuadrado,  n, temporal;
+    unsigned long long doble_solucion;
 
+    for(int i=0;i<tamano_array;i++){
+        printf("\n%d\n",numero_array[i]);
+    }
     //Dividimos al numero en parejas de dos empezando por la izquierda, lo guardamos en un array
-    numero_parejas = dividir_parejas(numero, numero_array,tamano_array);    //1
+    numero_parejas = tamano_array;    //1
+
     //Vamos a empezar a calcular, buscamos el numero que multiplicado por si mismo nos de el numero mas parecido al primero del array y lo guardamos en la solucion
     (*resto) = numero_array[0];
     
     printf ("Se procede a calcular la raiz.\n");
     
+    printf ("\n%d\n",numero_parejas);
     printf ("\n%d\n",numero_parejas);
 
     temporal = busca_cercano(resto);          //2
@@ -254,12 +259,6 @@ int calcula_raiz(unsigned long long numero, int *numero_array, int *resto, int *
 
 
 
-
-int comprobar_num(int numero){
-
-}
-
-
 //Funcion que comprueba el tamanio del numero que tenemso en argv[1]
 int comprueba_tam_numero(char *argv[]){
     int k;
@@ -311,10 +310,32 @@ int longitud_array_numeros(int tamano_array){
    
 }
 
-int divide_dos_en_dos(int *numeros_final, int *numeros_inicio, int tam){
-    int i=0, j=0;
+int divide_dos_en_dos(int *numeros_final, int *numeros_inicio, int tam_num){
+    int cont=0;
 
-    for(i=tam-1; i>-1; i--){
+    
+    
+
+    printf("\n%d\n",tam_num);
+
+    for(int i=0;i<tam_num;i++,cont++){
+        printf("\n%d\n",i);
+    
+        if(tam_num%2!=0 && i==0){
+            numeros_final[cont]=numeros_inicio[i];
+        }
+        else{
+            numeros_final[cont]=concatenate(numeros_inicio[i],numeros_inicio[i+1]);
+            i++;
+        }
+        
+        
+    }
+/*   
+
+
+    
+    for(i=tam2-1; i>-1; i--){
         if((i-1) >0){
             numeros_final[i] = numeros_inicio[i-1]*10 + numeros_inicio[i];
         }
@@ -323,6 +344,8 @@ int divide_dos_en_dos(int *numeros_final, int *numeros_inicio, int tam){
         }
         
     }
+*/
+
 }
 
 
@@ -350,9 +373,9 @@ int imprime_vector(int *array_numero, int tamano_array){
 int main (int argc, char *argv[])
 {
 
-    int  *numero_array, *resto, *solucion, tamano_array, *numero_array_temporal;
+    int  *numero_array, *solucion, tamano_array, *numero_array_temporal;
 
-    unsigned long long numero;
+    unsigned long long numero, *resto;
     
     if (argc > 0)
     {
@@ -375,9 +398,11 @@ int main (int argc, char *argv[])
     //Vemos la longitud del numero introducido
     tamano_array = comprueba_tam_numero(argv);
 
+
      //fprintf (stderr, "B.\n");
     //Reservamos memoria para el array
     numero_array_temporal = (int*) malloc(sizeof(int)*tamano_array);
+
     
     //fprintf (stderr, "C.\n");
     //Convertimos el string a un array de enteros
@@ -389,15 +414,20 @@ int main (int argc, char *argv[])
     //Vamos a dividirlo de dos en dos
     //Vemos la longitud del array, para ello comprobamos si es par o impar
 
+    printf("\n%d\n",longitud_array_numeros(tamano_array));
+
     numero_array = (int*) malloc(sizeof(int)*longitud_array_numeros(tamano_array));
 
-    divide_dos_en_dos(numero_array, numero_array_temporal, longitud_array_numeros(tamano_array));
+
+    divide_dos_en_dos(numero_array, numero_array_temporal,tamano_array);
 
     
     //tamano_array=calculo_array(numero);
     //numero_array=(int *) calloc (tamano_array, sizeof (int));
+
     
-    calcula_raiz(numero, numero_array, resto, solucion, tamano_array);
+   
+    calcula_raiz( numero_array, resto, solucion, longitud_array_numeros(tamano_array));
     
 
 
