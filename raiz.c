@@ -137,9 +137,9 @@ int dividir_parejas(unsigned long long numero, int *numero_array,int tamano_arra
 
 
 //Busca el numero mas cercano que multiplicado por si mismo de ese otro numero
-int busca_cercano(int *numero){
+int busca_cercano(unsigned long long *numero){
     int i;
-    printf ("\n%d\n",(*numero));
+    printf ("\n%llu\n",(*numero));
     for(i=0; i<=*numero; i++){
         printf ("\n%d\n",i);
         if((i*i) > *numero && *numero != 1){
@@ -156,7 +156,7 @@ int busca_cercano(int *numero){
 }
 
 //Funcion que calcula el cuadrado de un numero
-int calcula_cuadrado(int *n){
+int calcula_cuadrado(unsigned long long *n){
     return (*n)*(*n);
 }
 
@@ -172,16 +172,16 @@ int busca_n(unsigned long long doble_solucion, unsigned long long resto){
 
 }
 
-void mostrar_raiz(int resto, int solucion){
+void mostrar_raiz(unsigned long long resto, int solucion){
     printf("\nsolucion: %d\n", solucion);
-    printf("RESTO: %d\n", resto );
+    printf("RESTO: %llu\n", resto );
 }
 
 
-int calcula_raiz(int *numero_array, int *resto, int *solucion, int tamano_array){
+int calcula_raiz(int *numero_array, unsigned long long *resto, unsigned long long *solucion, int tamano_array){
 
-    int i=0, raiz_cercana, numero_parejas, continuar = 1, cuadrado,  n, temporal;
-    unsigned long long doble_solucion;
+    int i=0, raiz_cercana, numero_parejas, continuar = 1, cuadrado,  n ;
+    unsigned long long doble_solucion,temporal;
 
     for(int i=0;i<tamano_array;i++){
         printf("\n%d\n",numero_array[i]);
@@ -201,7 +201,7 @@ int calcula_raiz(int *numero_array, int *resto, int *solucion, int tamano_array)
     // Guardamos temporal en la solucion
     solucion = &temporal; 
     // Imprimimos la solucion
-    printf ("\nTemporal: %d\n", *solucion);
+    printf ("\nTemporal: %llu\n", *solucion);
 
     
     
@@ -217,7 +217,7 @@ int calcula_raiz(int *numero_array, int *resto, int *solucion, int tamano_array)
    
     
     (*resto) = (*resto) - cuadrado;             //4
-    printf ("\n%d\n",(*resto));
+    printf ("\n%llu\n",(*resto));
     i++;
     if(i >= numero_parejas){
             continuar = 0;
@@ -230,12 +230,12 @@ int calcula_raiz(int *numero_array, int *resto, int *solucion, int tamano_array)
         
         // Concatenamos la siguiente pareja de numeros
         (*resto) = concatenate((*resto), numero_array[i]);     //5
-        printf ("\nNuevo resto:%d\n",(*resto));
+        printf ("\nNuevo resto:%llu\n",(*resto));
         //Buscamos un numero que sea de la forma solucion*2 _ x_ menor que el resto
         n = busca_n(doble_solucion, (*resto));                          //6
         // Concatenamos el numero encontrado con la solucino
         (*solucion) = concatenate((*solucion), n);                          //7
-        printf ("\n%d\n",(*solucion));
+        printf ("\n%llu\n",(*solucion));
         // Le restamos al resto doble_solucion concatenado con n x n
         (*resto) = (*resto) - (concatenate(doble_solucion, n)*n);                    
 
@@ -373,9 +373,9 @@ int imprime_vector(int *array_numero, int tamano_array){
 int main (int argc, char *argv[])
 {
 
-    int  *numero_array, *solucion, tamano_array, *numero_array_temporal;
+    int  *numero_array, tamano_array, *numero_array_temporal;
 
-    unsigned long long numero, *resto;
+    unsigned long long numero, *resto,*solucion;
     
     if (argc > 0)
     {
