@@ -249,9 +249,9 @@ int calcula_raiz(int *numero_array, unsigned long long *resto, unsigned long lon
     int i=0, raiz_cercana, numero_parejas, continuar = 1, cuadrado,  n ;
     unsigned long long doble_solucion,temporal;
 
-    for(int i=0;i<tamano_array;i++){
-        //printf("\n%d\n",numero_array[i]);
-    }
+    //for(int i=0;i<tamano_array;i++){
+    //	printf("\n%d\n",numero_array[i]);
+    //}
     //Dividimos al numero en parejas de dos empezando por la izquierda, lo guardamos en un array
     numero_parejas = tamano_array;    //1
 
