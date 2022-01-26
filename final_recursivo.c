@@ -3,6 +3,51 @@
 // Fecha: 12/2021
 //-----------------------------------------------------------------------------
 
+/*
+Datos probados:
+5676534
+
+SOLUCION -> 2382
+RESTO -> 2610
+
+----------
+
+456745324523345435
+
+SOLUCION -> 675829360
+RESTO -> 685335835
+
+----------´
+
+4567453245233
+
+SOLUCION -> 2137160
+RESTO -> 379633
+
+----------
+
+12345678908774589652145236985412
+
+SOLUCION -> 3513641829893108
+RESTO -> 1157118531085748
+
+----------
+
+123456789087712345678908774589652145236985412
+
+SOLUCION -> 6171132129460938078
+RESTO -> 11732841835877136320
+
+----------
+
+1239087712345678589652145236985412
+
+SOLUCION -> 35200677725658615
+RESTO -> 25307009713267187
+
+
+*/
+
 //Librerias
 #include <stdio.h>
 #include <stdlib.h>
@@ -388,6 +433,7 @@ int hacer_raiz(unsigned long long *resto,  unsigned long long *solucion,int cont
         doble_solucion = *solucion *2;
         //printf("\ndoble solucion:%llu\n",doble_solucion);
 
+        //Controlamos los restos, ya que puede dar problema los 0s
         if(numero_array[cont]==0 ||numero_array[cont]==1 ||numero_array[cont]==2 ||numero_array[cont]==3 ||numero_array[cont]==4 ||numero_array[cont]==5 ||
         numero_array[cont]==6 || numero_array[cont]==7|| numero_array[cont]==8 ||numero_array[cont]==9 )
         {
