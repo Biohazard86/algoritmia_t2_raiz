@@ -98,8 +98,8 @@ int multiplicar_array(int *numero_array,int *solucion , int tam,int num)
     {
 
         solucion_multi=aux[i]*num;
-       // printf("\nsolucion_multi:%d\n",solucion_multi);
-         //printf("\nresto:%d\n",resto);
+        printf("\nsolucion_multi:%d\n",solucion_multi);
+        printf("\nresto:%d\n",resto);
         if(solucion_multi>9){
             if(i+1==tam){
                    // printf("!!!\n");
@@ -125,10 +125,13 @@ int multiplicar_array(int *numero_array,int *solucion , int tam,int num)
         }
         else{
             aux2[i]=solucion_multi+resto;
+             resto=0;
             tam_sol=i;
             
             
         }
+
+          printf("\naux2[i]: %d\n",aux2[i]);
         
     }
    /*
@@ -840,9 +843,9 @@ int main (int argc, char *argv[])
     }
     
 
-    int tam_sol=multiplicar_array(numero_parametro,solucion,size,5);
+    int tam_sol1=multiplicar_array(numero_parametro,solucion,size,6);
 
-    for(int i=0;i<tam_sol+1;i++){
+    for(int i=0;i<tam_sol1;i++){
         printf("\n%d\n",solucion[i]);
     }
 */
