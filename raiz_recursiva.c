@@ -98,8 +98,8 @@ int multiplicar_array(int *numero_array,int *solucion , int tam,int num)
     {
 
         solucion_multi=aux[i]*num;
-        printf("\nsolucion_multi:%d\n",solucion_multi);
-        printf("\nresto:%d\n",resto);
+        //printf("\nsolucion_multi:%d\n",solucion_multi);
+        //printf("\nresto:%d\n",resto);
         if(solucion_multi>9){
             if(i+1==tam){
                    // printf("!!!\n");
@@ -131,7 +131,7 @@ int multiplicar_array(int *numero_array,int *solucion , int tam,int num)
             
         }
 
-          printf("\naux2[i]: %d\n",aux2[i]);
+         // printf("\naux2[i]: %d\n",aux2[i]);
         
     }
    /*
@@ -888,4 +888,6 @@ int main (int argc, char *argv[])
 
 
 }
+
+
 
