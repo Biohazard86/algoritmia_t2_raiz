@@ -319,7 +319,7 @@ int busca_n(int *doble_solucion, int *resto,int tam_doble_solucion,int tam_resto
     
     //printf("\nTam doblesol %d\n",tam_doble_solucion);
     //printf("\ntam resto%d\n",tam_resto);
-/*
+
     for(int i=0;i<tam_doble_solucion;i++)
     {
         printf("\nDOBE SOL :: %d-----\n",doble_solucion[i]);
@@ -329,7 +329,7 @@ int busca_n(int *doble_solucion, int *resto,int tam_doble_solucion,int tam_resto
     {
         printf("\nRESTO :: %d-----\n",resto[i]);
     }
-    */
+    
    
     for(i=0; i<10; i++){
 
