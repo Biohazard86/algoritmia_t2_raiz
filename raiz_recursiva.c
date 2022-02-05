@@ -320,8 +320,8 @@ int busca_n(int *doble_solucion, int *resto,int tam_doble_solucion,int tam_resto
 
     //resto= (int*) malloc(sizeof(int)*1);
     
-    //printf("\nTam doblesol %d\n",tam_doble_solucion);
-    //printf("\ntam resto%d\n",tam_resto);
+    printf("\nTam doblesol %d\n",tam_doble_solucion);
+    printf("\ntam resto%d\n",tam_resto);
 
     for(int i=0;i<tam_doble_solucion;i++)
     {
