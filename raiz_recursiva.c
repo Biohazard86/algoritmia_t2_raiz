@@ -133,7 +133,7 @@ int multiplicar_array(int *numero_array,int *solucion , int tam,int num)
             
         }
 
-          printf("\naux2[i]: %d\n",aux2[i]);
+          //printf("\naux2[i]: %d\n",aux2[i]);
         
     }
    /*
@@ -150,7 +150,7 @@ int multiplicar_array(int *numero_array,int *solucion , int tam,int num)
     for(int i=0,j=tam_sol;i<tam_max;i++,j--)
     {
        // printf("!!!\n");
-        // printf("\n%d\n--",aux2[j]);
+        printf("\n%d\n--",aux2[j]);
         solucion[i]=aux2[j];
     }
 
