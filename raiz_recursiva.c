@@ -74,6 +74,89 @@ void presentacion(){
 }
 
 
+int multiplicar_array(int *numero_array,int *solucion , int tam,int num)
+{
+
+    int solucion_multi=0, resto=0 , sol_2,tam_sol=0;
+
+    int tam_max=tam+1;
+    int aux[tam];
+    int aux2[tam];
+
+    for(int i=0,j=tam-1;i<tam;i++,j--)
+    {
+        aux[i]=numero_array[j];
+    }
+    /*
+    for(int i=0;i<tam;i++){
+        printf("\n%d\n--",aux[i]);
+    }
+
+     printf("\n%d\n--",num);
+*/
+    for(int i=0;i<tam;i++)
+    {
+
+        solucion_multi=aux[i]*num;
+       // printf("\nsolucion_multi:%d\n",solucion_multi);
+         //printf("\nresto:%d\n",resto);
+        if(solucion_multi>9){
+            if(i+1==tam){
+                   // printf("!!!\n");
+                    aux2[i]=(solucion_multi%10)+resto;
+                    aux2[i+1]=solucion_multi/10;
+                    tam_sol= i+1;
+                    
+            }
+            else{
+                if(resto==0){
+                    aux2[i]=solucion_multi%10;
+                    resto=solucion_multi/10;
+                }
+                else{
+                
+                aux2[i]=(solucion_multi%10)+resto;
+                resto=solucion_multi/10;
+                
+                }
+            }
+            
+            
+        }
+        else{
+            aux2[i]=solucion_multi+resto;
+            tam_sol=i;
+            
+            
+        }
+        
+    }
+   /*
+    printf("!!!\n");
+    for(int i=0;i<tam_sol+1;i++){
+        printf("\n%d\n--",aux2[i]);
+    }
+    
+    printf("!!!\n");
+        
+    printf("%d\n",tam_sol);
+    printf("%d\n",tam);
+    */
+    for(int i=0,j=tam_sol;i<tam_max;i++,j--)
+    {
+       // printf("!!!\n");
+        // printf("\n%d\n--",aux2[j]);
+        solucion[i]=aux2[j];
+    }
+
+    //printf("tam_sol---%d\n",tam_sol+1);
+    
+    return tam_sol+1;
+    
+}
+
+
+
 //----------------------------------------------------------------------------------------------------------------------
 // Funcion es_par
 //----------------------------------------------------------------------------------------------------------------------
@@ -196,16 +279,17 @@ int dividir_parejas(unsigned long long numero, int *numero_array,int tamano_arra
 // PARAMETROS
 //      numero: numero del que queremos saber el mas cercano
 //----------------------------------------------------------------------------------------------------------------------
-int busca_cercano(unsigned long long *numero){
+int busca_cercano(unsigned long long numero){
     int i;
+    int num=numero;
     //printf ("\n%llu\n",(*numero));
-    for(i=0; i<=*numero; i++){
+    for(i=0; i<=num; i++){
         //printf ("\n%d\n",i);
-        if((i*i) > *numero && *numero != 1){
+        if((i*i) > num && num != 1){
             //printf ("\n%d\n",i);
             return i-1;
         }
-        else if(*numero == 1){
+        else if(num == 1){
             return 1;
         }            
     }
@@ -220,20 +304,88 @@ int busca_cercano(unsigned long long *numero){
 // PARAMETROS
 //      numero: numero del que queremos saber el cuadrado
 //----------------------------------------------------------------------------------------------------------------------
-int calcula_cuadrado(unsigned long long *n){
-    return (*n)*(*n);
+int calcula_cuadrado(unsigned long long n){
+    return n*n;
 }
 
 
 //Buscamos un numero que sea de la forma solucion*2 _ x_ menor que el resto
-int busca_n(unsigned long long doble_solucion, unsigned long long resto){
-    unsigned long long i, concatenacion;
-    for(i=1; i<=resto; i++){
-        concatenacion = concatenate(doble_solucion, i);
-        if((concatenacion *i) > resto){
-            printf("\n%llu\n",i);
+int busca_n(int *doble_solucion, int *resto,int tam_doble_solucion,int tam_resto){
+    int i,j, *sol,tam_sol, busca_sol;
+
+    sol= (int*) malloc(sizeof(int)*10000000);
+
+    //resto= (int*) malloc(sizeof(int)*1);
+    
+    //printf("\nTam doblesol %d\n",tam_doble_solucion);
+    //printf("\ntam resto%d\n",tam_resto);
+/*
+    for(int i=0;i<tam_doble_solucion;i++)
+    {
+        printf("\nDOBE SOL :: %d-----\n",doble_solucion[i]);
+    }
+    
+    for(int i=0;i<tam_resto;i++)
+    {
+        printf("\nRESTO :: %d-----\n",resto[i]);
+    }
+    */
+   
+    for(i=0; i<10; i++){
+
+        busca_sol=0;
+
+        //printf("\ni--%d\n",i);
+        
+        doble_solucion[tam_doble_solucion]=i;
+
+        /*
+        for(int i=0;i<tam_doble_solucion+1;i++)
+        {
+            printf("\nDOBE SOL :: %d-----\n",doble_solucion[i]);
+        }
+        */
+        tam_sol=multiplicar_array(doble_solucion,sol,tam_doble_solucion+1,i);
+        printf("\ntam_sol: %d\ni:%d\n",tam_sol,i);
+        /*
+        for(int i=0;i<tam_sol;i++)
+        {
+            printf("\nSOL :: %d-----\n",sol[i]);
+        }
+        */
+        if(tam_sol>tam_resto){
+            //printf("\n!!!! %d \n",i);
             return i-1;
-        } 
+        }
+        else{
+            /*
+            for(j=0;j<tam_resto;j++)
+            {
+
+                printf("\nRESTO i: %d\n",resto[j]);
+                printf("\nSOL i: %d\n",sol[busca_sol]);
+            }
+            printf("\nCompara RESTO i: %d\n",resto[busca_sol]);  
+            printf("\nCompara SOL i: %d\n",sol[busca_sol]);   
+*/
+            for(j=0;j<tam_resto;j++)
+            {
+                if(tam_sol==tam_resto &&  resto[busca_sol]<sol[busca_sol]){
+                    printf("\n!!!! %d \n",j);
+                    return i-1;    
+                }
+                else if(tam_sol==tam_resto &&  resto[j]==sol[busca_sol]){
+                    busca_sol++;
+                }
+
+            }
+
+            
+            
+        }
+
+        
+         
     }
 
 }
@@ -334,7 +486,7 @@ int divide_dos_en_dos(int *numeros_final, int *numeros_inicio, int tam_num){
 
     
 
-    printf("\n%d\n",tam_num);
+    printf("\nTamnum%d\n",tam_num);
 
     for(int i=0;i<tam_num;i++,cont++){
         printf("\n%d\n",i);
@@ -349,19 +501,10 @@ int divide_dos_en_dos(int *numeros_final, int *numeros_inicio, int tam_num){
         
         
     }
-/*     
-    for(i=tam2-1; i>-1; i--){
-        if((i-1) >0){
-            numeros_final[i] = numeros_inicio[i-1]*10 + numeros_inicio[i];
-        }
-        else{
-            numeros_final[i] = numeros_inicio[i];
-        }
-        
-    }
-*/
+
 
 }
+
 
 //----------------------------------------------------------------------------------------------------------------------
 // Funcion imrpime_vector
@@ -390,108 +533,238 @@ int imprime_vector(int *array_numero, int tamano_array){
     printf ("\n");
 }
 
-
-
-//Funcion que calcula el resultado de forma recursiva
-int hacer_raiz(unsigned long long *resto,  unsigned long long *solucion,int cont,int *numero_array,int numero_parejas){
-    int n, cuadrado;
-    unsigned long long doble_solucion,temporal;
-
-    printf("\nNumero parejas:%d\n",numero_parejas);
-    printf("\ncont:%d\n",cont);
-
-    //Mientras el contador no sea mayor o igual no entra y si entra es que ha acabado
-    if(cont >= numero_parejas ){
-      //Muestra la raiz
-    mostrar_raiz(*resto,*solucion);     //Mostramos la solucion final y el resto
-    return 1;          //Retornamos
-    }else{
-      //Para la primera iteraccion se necesita primero hacer 
-    if(cont==0){    //Vemos si es la primera iteracion
-
-        //El resto es el primer numero o par de numeros
-
-        printf("\nnumeroarray%d\n",numero_array[cont]);
-        (*resto) = numero_array[cont];
-
-        //Se busca un numero que multiplicado por si mismo de ese numero
-        //printf("\nBusca cercano:%d\n", busca_cercano(resto));
-        temporal = busca_cercano(resto);
-
-
-        printf("\nTemporal%d\n",temporal);
-        solucion=&temporal;
-
-
-        
-        //printf("\nSoluciuon:%llu\n",*solucion);
-        //Se calcula el cadruado de ese numero
-        cuadrado = calcula_cuadrado(solucion);        
+void resta_arrays(int *array1,int *array2,int cont, int tam_doble_sol)
+{
+    int i,j,resto=0;
     
-        //y depues de calcula el resto de ese numero
-        (*resto) = (*resto) - cuadrado; 
-
-        printf("\nResto%d\n",*resto);
-        cont++;
-
-        //Y por ultimo se pasa estos mismo datos como parametros
-        hacer_raiz(resto,solucion,cont,numero_array,numero_parejas);
+    int aux1[cont];
+    int aux2[cont];
+    /*
+    for(int i=0,j=cont-1;i<cont;i++,j--)
+    {
+        aux1[i]=array1[j];
+        printf("aux1:%d",aux1[i]);
     }
-    else{
+    for(int i=0,j=cont-1;i<cont;i++,j--)
+    {
+        aux2[i]=array2[j];
+        printf("aux2:%d",aux2[i]);
+    }
+    
 
-        // Si no es la primera ejecución entonces se hace lo sigueinte  
-        doble_solucion = *solucion *2;
-        //printf("\ndoble solucion:%llu\n",doble_solucion);
+    for(int i=0;i<cont;i++)
+    {
+       array1[i]= aux1[i];
+    }
 
-        //Controlamos los restos, ya que puede dar problema los 0s
-        if(numero_array[cont]==0 ||numero_array[cont]==1 ||numero_array[cont]==2 ||numero_array[cont]==3 ||numero_array[cont]==4 ||numero_array[cont]==5 ||
-        numero_array[cont]==6 || numero_array[cont]==7|| numero_array[cont]==8 ||numero_array[cont]==9 )
+    for(int i=0;i<cont;i++)
+    {
+       array2[i]= aux2[i];
+    }
+    */
+
+
+    for(i=cont-1,j=tam_doble_sol-1;i>=0 ;i--,j--)
+    {
+
+        //printf("\ni--%d\nj---%d\n",i,j);
+        if(j>=0)
         {
-            *resto=*resto*100+numero_array[cont];
+            printf("%d-%d",array1[i],array2[j]);
+            array1[i]=array1[i]-array2[j]-resto;
+            //printf("***%d",array1[i]);
+            
+            if(array1[i]<0){
+                array1[i]=array1[i]+10;
+                //printf("%d",array1[i]);
+                resto=1;
+            }
+            else{
+                resto=0;
+            }
         }
         else{
-             *resto = concatenate(*resto, numero_array[cont]);
+            //printf("***%d",array1[i]);
+            array1[i]=array1[i];
         }
-        printf("\nResto%d\n",*resto);
-
-        //printf("\nPrimer resto:%llu\n",*resto);
-        n = busca_n(doble_solucion, *resto);
-        //printf("\nPrimer n:%d\n",n);
-        *solucion = concatenate(*solucion, n);
-        //printf("\nSolucion:%llu\n",*solucion);
-        *resto = *resto - (concatenate(doble_solucion, n)*n);
-        //printf("\nSegundo resto:%llu\n",*resto);
-        cont++;
-        hacer_raiz(resto,solucion,cont,numero_array,numero_parejas);
+        
+        
     }
     
-    
-  }
 }
 
-/*
-void dividir_parametro(long int size)
-{
-    char *variables;
-    //unsigned long long ;
 
-    int num_var=(size/20)+1;
+
+int hacer_raizv2(int *cont,int *numero_array,int numero_parejas,int *resto,int *solucion,int *tam_resto,int *tam_sol)
+{
+    int cuadrado, *doble_solucion, n,tam_doble_solucion,i=0,j;
+
+    doble_solucion= (int*) malloc(sizeof(int)*1000000000);
+
+
+    if(*cont==0){
+
+        printf("\nCont1:%d\n", *cont);
+        
+        //caso trivial
+
+        printf("\nnumero_array: %d\n", numero_array[*cont]);
+        printf("\nresto: %d\n",resto[0]);
+
+        resto[0]=numero_array[*cont];
+
+        printf("!!!\n");
+
+        //fprintf(stderr,"\nresto:%d\n", resto[0]);
+        solucion[0]=busca_cercano(resto[0]);
+        *tam_sol=*tam_sol+1;
+        
+        //fprintf(stderr,"\nresto:%d\n", resto[0]);
+
+
+      // fprintf(stderr,"\nsolucion:%d\n", solucion[0]);
+        cuadrado = calcula_cuadrado(solucion[0]);
+        //fprintf(stderr,"\nsolucion:%d\n", solucion[0]);
+
+      // fprintf(stderr,"\ncuadrado:%d\n", cuadrado);
+
+         
+        resto[0]=resto[0]-cuadrado;
+
+        
+        *tam_resto=*tam_resto+1;
+
+        if(resto[0]==0)
+        {
+            *tam_resto=*tam_resto=*tam_resto-1;
+        }
+        
+        
+        
+        fprintf(stderr,"\nresto: %d\nsolucion: %d\n", resto[0],solucion[0]);
+
+        *cont=*cont+1;
+        return 1;
+
+    }  
+    else{
+        printf("cont2:%d\n",*cont);
+        *cont=*cont-1;
+
+        hacer_raizv2(cont, numero_array,numero_parejas,resto,solucion,tam_resto,tam_sol);
+        printf("cont4:%d\n",*cont);
+
+        printf("\ntam_sol%d\n",*tam_sol);
+        printf("\ntam_resto%d\n",*tam_resto);
+        
+
+        tam_doble_solucion=multiplicar_array(solucion,doble_solucion,*tam_sol,2);
+        
+        //resto= (int*) malloc(sizeof(int)*2);
+        
+
+        resto[*tam_resto]=numero_array[*cont]/10;
+        *tam_resto=*tam_resto+1;
+        resto[*tam_resto]=numero_array[*cont]%10;
+        *tam_resto=*tam_resto+1;
+
+        for(int i=0;i<*tam_resto;i++)
+        {
+            printf("\nRESTO: %d\n",resto[i]);
+        }
+        for(int i=0;i<*tam_sol;i++)
+        {
+            printf("\nSOL: %d\n",solucion[i]);
+        }
+
+        
+
+
+        n= busca_n(doble_solucion,resto,tam_doble_solucion,*tam_resto);
+
+        printf("\nBusca n%d\n",n);
+        
+
+        
+
+        //solucion= (int*) malloc(sizeof(int)*1);
+    
+
+        
+
+        solucion[*tam_sol]=n;
+        *tam_sol=*tam_sol+1;
+
+        doble_solucion[tam_doble_solucion]=n;
+        tam_doble_solucion++;
+
+        
+
+        tam_doble_solucion=multiplicar_array(doble_solucion,doble_solucion,tam_doble_solucion,n);
+
+
+        //printf("\n******resto: %d\n",*tam_resto);
+        /*for(int i=0;i<tam_resto;i++){
+            printf("\n******resto: %d\n",resto[i]);
+        }
+
+        for(int i=0;i<tam_doble_solucion;i++){
+            printf("\n******Doble sol: %d\n",doble_solucion[i]);
+        }*/
+
+
+        resta_arrays(resto,doble_solucion,*tam_resto,tam_doble_solucion);
+
+
+        while(resto[i]==0)
+        {
+            for(j=0;j<*tam_resto;j++)
+            {
+                resto[j]=resto[j+1];
+            }
+            *tam_resto=*tam_resto-1;
+        }
+
+         for(int i=0;i<*tam_resto;i++)
+        {
+            printf("\n----------RESTO---------: %d\n",resto[i]);
+        }
+        for(int i=0;i<*tam_sol;i++)
+        {
+            printf("\n-----------SOL---------: %d\n",solucion[i]);
+        }
+        printf("!!!\n");
+        printf("cont3:%d\n",*cont);
+
+        *cont=*cont+1;
+         printf("cont3:%d\n",*cont);
+
+        printf("!!!\n");
+        
+        return 1;        
+        
+    }
+
+}
+
+
+void mostrar_solucion(int *resto,int *solucion,int *tam_resto,int *tam_sol)
+{
     int i;
 
-    printf("\n%d\n",num_var);
-    for(i=0;i<num_var;i++)
+    printf("\nSOLUCION: ");
+    for(i=0;i<*tam_sol;i++)
     {
-         printf("\n%s\n",itoa("variables", "%d", i));
-        variables[i]=sprintf("variables", "%d", i);
+        printf("%d",solucion[i]);
     }
-    for(i=0;i<num_var;i++)
-    {
-        printf("\n%c\n",variables[i]);
-    }
+    printf("\n\n");
 
-    
+    printf("\nRESTO: ");
+    for(i=0;i<*tam_resto;i++)
+    {
+        printf("%d",resto[i]);
+    }
 }
-*/
 
 
 
@@ -505,11 +778,22 @@ void dividir_parametro(long int size)
 int main (int argc, char *argv[])
 {
 
-    //Variables
-    int  *numero_array, tamano_array, *numero_array_temporal,cont =0;
-    unsigned long long numero, *resto,*solucion;
 
+    //Variables
+    int  *numero_array, tamano_array, *numero_array_temporal,*cont,*tam_resto,*tam_sol;
+    int  *resto,*solucion;
+
+    resto= (int*) malloc(sizeof(int)*10000000);
+    solucion= (int*) malloc(sizeof(int)*100000000);
+    cont= malloc(sizeof(int)*1);
+
+    tam_resto=  malloc(sizeof(int)*1);
+    tam_sol=malloc(sizeof(int)*1);
+
+    *tam_resto=0;
+    *tam_sol=0;
     
+
 
     size_t size = strlen(argv[1]);
 
@@ -523,24 +807,24 @@ int main (int argc, char *argv[])
     for(int i=0;i<size;i++){
         numero_parametro[i]=argv[1][i]-'0';
     }
-    /*
-    for(int i=0;i<size;i++){
-        printf("%d--",numero_parametro[i]);
-    }
-    */
+/*
+    int array1[3]={1,4,5};
+    int array2[3]={1,2,7};
 
-    // Control de errores
-    if (argc > 1){ 
-        numero = atoi (argv[1]);
-        if (numero <= 0){
-            fprintf (stderr, "No existen raices negativas dentro de los numeros reales.\n"); return 1;
-        }
-	}
-    else{
-        fprintf (stderr, "Error: No se han introducido todos los datos.\n"); return 1;
+    
+    resta_arrays(array1,array2,3);
+
+    for(int i=0;i<3;i++){
+        printf("\nSol resta:%d\n",array1[i]);
     }
     
-   
+
+    int tam_sol=multiplicar_array(numero_parametro,solucion,size,5);
+
+    for(int i=0;i<tam_sol+1;i++){
+        printf("\n%d\n",solucion[i]);
+    }
+*/
     presentacion();
     fprintf (stdout, "Se procede al calculo.\n");
 
@@ -549,9 +833,7 @@ int main (int argc, char *argv[])
     printf("!!!\n");
     divide_dos_en_dos(numero_parametro2, numero_parametro,size);
 
-    for(int i=0;i<size/2;i++){
-        printf("\n%d\n",numero_parametro2[i]);
-    }
+    
     printf("!!!\n");
 
     if(size%2!=0){
@@ -560,35 +842,27 @@ int main (int argc, char *argv[])
     else{
         size=size/2;
     }
+
+     printf("Size:%ld\n",size);
+    for(int i=0;i<size;i++){
+        printf("\n%d---\n",numero_parametro2[i]);
+    }
     
-    hacer_raiz(resto,solucion,cont,numero_parametro2,size);
+    *cont=(int) size-1;
+    
+    printf("Cont main: %d\n", *cont);
+    
 
-  /*
-    // Presentacion del programa
-    presentacion();
+    hacer_raizv2(cont, numero_parametro2,size,resto,solucion,tam_resto,tam_sol);
 
-    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++=
-    // Preparacion de los datos:
-    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++=
+    
+ 
+    printf("Cont main2: %d\n", *cont);
 
-    fprintf (stderr, "Se procede al calculo.\n");
-    //Vemos la longitud del numero introducido
-    tamano_array = comprueba_tam_numero(argv);
-    //Reservamos memoria para el array
-    numero_array_temporal = (int*) malloc(sizeof(int)*tamano_array);
-    //Convertimos el string a un array de enteros
-    string_a_array_enteros(argv, numero_array_temporal, tamano_array);
-    numero_array = (int*) malloc(sizeof(int)*longitud_array_numeros(tamano_array));
-    // Dividimos en parejas de dos
-    divide_dos_en_dos(numero_array, numero_array_temporal,tamano_array);
+    mostrar_solucion(resto,solucion,tam_resto,tam_sol);
 
-    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++=
-    // Calculo de la raiz:
-    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++=
-    //printf("%d",longitud_array_numeros(tamano_array));
-    hacer_raiz(resto,solucion,cont,numero_array,longitud_array_numeros(tamano_array));
 
-    */
+
 }
 
 
