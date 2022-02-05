@@ -94,15 +94,15 @@ int multiplicar_array(int *numero_array,int *solucion , int tam,int num)
 
      printf("\n%d\n--",num);
 */
-    for(int i=0;i<tam_max;i++)
+    for(int i=0;i<tam;i++)
     {
 
         solucion_multi=aux[i]*num;
         //printf("\nsolucion_multi:%d\n",solucion_multi);
         //printf("\nresto:%d\n",resto);
         if(solucion_multi>9){
-            if(i+1==tam_max){
-                   // printf("!!!\n");
+            if(i+1==tam){
+                    printf("!!!\n");
                     aux2[i]=(solucion_multi%10)+resto;
                     aux2[i+1]=solucion_multi/10;
                     tam_sol= i+1;
