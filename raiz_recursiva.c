@@ -105,7 +105,9 @@ int multiplicar_array(int *numero_array,int *solucion , int tam,int num)
                     printf("!!!\n");
                     aux2[i]=(solucion_multi%10)+resto;
                     aux2[i+1]=solucion_multi/10;
+                    printf("%d\n",tam_sol);
                     tam_sol= i+1;
+                    printf("%d\n",tam_sol);
                     
             }
             else{
