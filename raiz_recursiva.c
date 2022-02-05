@@ -545,12 +545,14 @@ void resta_arrays(int *array1,int *array2,int cont, int tam_doble_sol)
         aux1[i]=array1[j];
         printf("aux1:%d",aux1[i]);
     }
+    */
     for(int i=0,j=cont-1;i<cont;i++,j--)
     {
         aux2[i]=array2[j];
         printf("aux2:%d",aux2[i]);
     }
-    
+  /*  
+
 
     for(int i=0;i<cont;i++)
     {
