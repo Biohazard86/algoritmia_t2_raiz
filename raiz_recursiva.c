@@ -570,10 +570,21 @@ void resta_arrays(int *array1,int *array2,int cont, int tam_doble_sol)
         //printf("\ni--%d\nj---%d\n",i,j);
         if(j>=0)
         {
-            printf("%d-%d",array1[i],array2[j]);
-            array1[i]=array1[i]-array2[j]-resto;
-            //printf("***%d",array1[i]);
-            
+            printf("%d-%d\n",array1[i],array2[j]);
+
+            if(array1[i]<array2[j])
+            {
+               
+               array1[i]=((array1[i]+10))-array2[j];
+               array1[i-1]=array1[i-1]-1;
+               resto=1;
+            }
+            else{
+                array1[i]=array1[i]-array2[j];
+                resto=0;
+                //printf("***%d",array1[i]);
+            }
+            /*    
             if(array1[i]<0){
                 array1[i]=array1[i]+10;
                 //printf("%d",array1[i]);
@@ -582,6 +593,8 @@ void resta_arrays(int *array1,int *array2,int cont, int tam_doble_sol)
             else{
                 resto=0;
             }
+
+            */
         }
         else{
             //printf("***%d",array1[i]);
@@ -807,12 +820,18 @@ int main (int argc, char *argv[])
     for(int i=0;i<size;i++){
         numero_parametro[i]=argv[1][i]-'0';
     }
+
 /*
-    int array1[3]={1,4,5};
-    int array2[3]={1,2,7};
+    int array1[6]={4,5,0,9,8,0};
+    int array2[6]={4,2,1,5,9,6};
 
     
-    resta_arrays(array1,array2,3);
+    resta_arrays(array1,array2,6,6);
+
+    for(int i=0;i<6;i++)
+    {
+        printf("\nSolucion: %d\n",array1[i]);
+    }
 
     for(int i=0;i<3;i++){
         printf("\nSol resta:%d\n",array1[i]);
