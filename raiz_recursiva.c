@@ -131,7 +131,7 @@ int multiplicar_array(int *numero_array,int *solucion , int tam,int num)
             
         }
 
-         // printf("\naux2[i]: %d\n",aux2[i]);
+          printf("\naux2[i]: %d\n",aux2[i]);
         
     }
    /*
@@ -342,12 +342,12 @@ int busca_n(int *doble_solucion, int *resto,int tam_doble_solucion,int tam_resto
         
         doble_solucion[tam_doble_solucion]=i;
 
-        /*
+        
         for(int i=0;i<tam_doble_solucion+1;i++)
         {
             printf("\nDOBE SOL :: %d-----\n",doble_solucion[i]);
         }
-        */
+        
         tam_sol=multiplicar_array(doble_solucion,sol,tam_doble_solucion+1,i);
         printf("\ntam_sol: %d\ni:%d\n",tam_sol,i);
         /*
@@ -617,7 +617,7 @@ int hacer_raizv2(int *cont,int *numero_array,int numero_parejas,int *resto,int *
 {
     int cuadrado, *doble_solucion, n,tam_doble_solucion,i=0,j;
 
-    doble_solucion= (int*) malloc(sizeof(int)*1000000000);
+    doble_solucion= (int*) malloc(sizeof(int)*100000000000);
 
 
     if(*cont==0){
@@ -801,8 +801,8 @@ int main (int argc, char *argv[])
     int  *numero_array, tamano_array, *numero_array_temporal,*cont,*tam_resto,*tam_sol;
     int  *resto,*solucion;
 
-    resto= (int*) malloc(sizeof(int)*10000000);
-    solucion= (int*) malloc(sizeof(int)*100000000);
+    resto= (int*) malloc(sizeof(int)*100000000);
+    solucion= (int*) malloc(sizeof(int)*1000000000);
     cont= malloc(sizeof(int)*1);
 
     tam_resto=  malloc(sizeof(int)*1);
