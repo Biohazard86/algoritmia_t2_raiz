@@ -370,9 +370,10 @@ int busca_n(int *doble_solucion, int *resto,int tam_doble_solucion,int tam_resto
                 printf("\nRESTO i: %d\n",resto[j]);
                 printf("\nSOL i: %d\n",sol[busca_sol]);
             }
+            */
             printf("\nCompara RESTO i: %d\n",resto[busca_sol]);  
             printf("\nCompara SOL i: %d\n",sol[busca_sol]);   
-*/
+
             for(j=0;j<tam_resto;j++)
             {
                 if(tam_sol==tam_resto &&  resto[busca_sol]<sol[busca_sol]){
