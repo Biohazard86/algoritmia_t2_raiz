@@ -51,7 +51,7 @@ void presentacion(){
     fprintf(stdout, "--                TRABAJO 2 - CURSO 2021/2022             --\n");
     fprintf(stdout, "--    Raiz cuadrada de numeros de precision arbitraria    --\n");
     fprintf(stdout, "------------------------------------------------------------\n");
-    fprintf(stdout, "--           David Barrios   &   Sergio Barrios           --\n");
+    fprintf(stdout, "--                     Sergio Barrios                     --\n");
     fprintf(stdout, "------------------------------------------------------------\n\n");
 }
 
@@ -70,36 +70,38 @@ void presentacion(){
 int multiplicar_array(int *numero_array,int *solucion , int tam,int num)
 {
 
+ //Se inicializa variables que seran contadores o que guardan el tamaño de los arrays y de la solucion
     int solucion_multi=0, resto=0 , sol_2,tam_sol=0;
 
     int tam_max=tam+1;
+
+//Varables auxiliares que ayudaran a dar la vuelta al vector para un mejor tratamiento de estes para proceder a la multiplicacion
     int aux[tam];
     int aux2[tam];
 
+//Se da la vuelta al vector y se guarda en una variable auxiliar
     for(int i=0,j=tam-1;i<tam;i++,j--)
     {
         aux[i]=numero_array[j];
     }
-    /*
-    for(int i=0;i<tam;i++){
-        printf("\n%d\n--",aux[i]);
-    }
-     printf("\n%d\n--",num);
-*/
+
+    //Se recorre todo el vector de numeros para que cada uno se multiplique por el numero introducido
+    //En el caso de que el numero sea mayor de 9 se descompondra y la primera cifra se guardara en el array solucion
+    //La segunda cifra de se guarda en la variable resto y en caso de que a la primera cifra de la solucion al sumarle el resto diera mayor a 9 se procederia a hacer lo mismo 
+    //pero sumandole el segundo digito al resto
     for(int i=0;i<tam;i++)
     {
 
         solucion_multi=aux[i]*num;
-        //printf("\nsolucion_multi:%d\n",solucion_multi);
-        //printf("\nresto:%d\n",resto);
+
         if(solucion_multi>9){
             if(i+1==tam){
-                    printf("!!!\n");
+                    
                     aux2[i]=(solucion_multi+resto)%10;
                     aux2[i+1]=(solucion_multi+resto)/10;
-                    printf("%d\n",tam_sol);
+                    
                     tam_sol= i+1;
-                    printf("%d\n",tam_sol);
+                    
                     
             }
             else{
@@ -130,29 +132,16 @@ int multiplicar_array(int *numero_array,int *solucion , int tam,int num)
             
             
         }
-
-          //printf("\naux2[i]: %d\n",aux2[i]);
+          
         
     }
-   /*
-    printf("!!!\n");
-    for(int i=0;i<tam_sol+1;i++){
-        printf("\n%d\n--",aux2[i]);
-    }
-    
-    printf("!!!\n");
-        
-    printf("%d\n",tam_sol);
-    printf("%d\n",tam);
-    */
+ 
     for(int i=0,j=tam_sol;i<tam_max;i++,j--)
     {
-       // printf("!!!\n");
-        printf("\n%d\n--",aux2[j]);
+
         solucion[i]=aux2[j];
     }
 
-    //printf("tam_sol---%d\n",tam_sol+1);
     
     return tam_sol+1;
     
@@ -318,68 +307,32 @@ int busca_n(int *doble_solucion, int *resto,int tam_doble_solucion,int tam_resto
 
     sol= (int*) malloc(sizeof(int)*10000000);
 
-    //resto= (int*) malloc(sizeof(int)*1);
-    
-    printf("\nTam doblesol %d\n",tam_doble_solucion);
-    printf("\ntam resto%d\n",tam_resto);
-
-    for(int i=0;i<tam_doble_solucion;i++)
-    {
-        printf("\nDOBE SOL :: %d-----\n",doble_solucion[i]);
-    }
-    
-    for(int i=0;i<tam_resto;i++)
-    {
-        printf("\nRESTO :: %d-----\n",resto[i]);
-    }
     
    
     for(i=0; i<10; i++){
 
         busca_sol=0;
 
-        //printf("\ni--%d\n",i);
+ 
         
         doble_solucion[tam_doble_solucion]=i;
 
-        /*
-        for(int i=0;i<tam_doble_solucion+1;i++)
-        {
-            printf("\nDOBE SOL :: %d-----\n",doble_solucion[i]);
-        }
-        */
+
         tam_sol=multiplicar_array(doble_solucion,sol,tam_doble_solucion+1,i);
-        printf("\ntam_sol: %d\ni:%d\n",tam_sol,i);
-        /*
-        for(int i=0;i<tam_sol;i++)
-        {
-            printf("\nSOL :: %d-----\n",sol[i]);
-        }
-        */
+ 
         if(tam_sol>tam_resto){
-            //printf("\n!!!! %d \n",i);
             return i-1;
         }
         else{
-            /*
-            for(j=0;j<tam_resto;j++)
-            {
-                printf("\nRESTO i: %d\n",resto[j]);
-                printf("\nSOL i: %d\n",sol[busca_sol]);
-            }
-            */
-            printf("\nCompara RESTO i: %d\n",resto[busca_sol]);  
-            printf("\nCompara SOL i: %d\n",sol[busca_sol]);   
+
 
             for(j=0;j<tam_resto;j++)
             {
                 if(tam_sol==tam_resto &&  resto[busca_sol]<sol[busca_sol]){
                     
-                    printf("\nreturn i %d \n",j);
                     return i-1;    
                 }
                 else if(tam_sol==tam_resto &&  resto[busca_sol]==sol[busca_sol]){
-                    printf("\nbusca_sol++%d \n",busca_sol);
                     busca_sol++;
                 }
 
@@ -392,111 +345,17 @@ int busca_n(int *doble_solucion, int *resto,int tam_doble_solucion,int tam_resto
         
          
     }
-
     return 9;
 
 }
 
 
-//----------------------------------------------------------------------------------------------------------------------
-// Funcion mostrar_raiz
-//----------------------------------------------------------------------------------------------------------------------
-// Funcion que muestra la solucion
-//----------------------------------------------------------------------------------------------------------------------
-// PARAMETROS
-//      resto: resto final
-//      solucion: solucion final
-//----------------------------------------------------------------------------------------------------------------------
-void mostrar_raiz(unsigned long long resto, unsigned long long solucion){
-    printf("\n");
-    printf("SOLUCION -> %llu\n", solucion);
-    printf("RESTO -> %llu\n", resto );
-}
-
-
-//----------------------------------------------------------------------------------------------------------------------
-// Funcion comprueba_tam_numero
-//----------------------------------------------------------------------------------------------------------------------
-// Funcion que comprueba el tamanio que tiene el numero que nos pasan por paramaetro
-//----------------------------------------------------------------------------------------------------------------------
-// PARAMETROS
-//      argv: argumento que nos pasan por parametro
-//----------------------------------------------------------------------------------------------------------------------
-
-int comprueba_tam_numero(char *argv[]){
-    int k;
-    //Comprobamos la longitud del numero
-    while (1){
-        if(argv[1][k] == '\0'){ //Si el caracter es el final de la cadena
-            break;              //Salimos del bucle
-        }
-        else{                   //Si no es el final de la cadena
-            k++;                //Incrementamos el contador
-        }
-    }
-    fprintf(stdout, "Numero de %d digitos\n", k);
-    return k;                   //Devolvemos el valor de k, es decir, la longitud del numero
-}
-
-
-//----------------------------------------------------------------------------------------------------------------------
-// Funcion string_a_array_enteros
-//----------------------------------------------------------------------------------------------------------------------
-// Funcion que convierte el parametro a un array de enteros
-//----------------------------------------------------------------------------------------------------------------------
-// PARAMETROS
-//      argv: argumento que nos pasan por parametro
-//      array_numeros: array donde se guarda el numero en parejas
-//      tamano_array: tamaño del array del numero de parejas
-//----------------------------------------------------------------------------------------------------------------------
-int string_a_array_enteros(char *argv[], int *array_numero, int tamano_array){
-    int i, k, j, numero_temporal;
-    
-    //Convertimos el string a un array de enteros
-    i=0;
-    for(j=0; j<tamano_array; j++){
-        
-        
-        // HAcemos un cast de char a int
-        numero_temporal = argv[1][i]-'0';
-        // Guardamos el numero en el array
-        array_numero[j] = numero_temporal;
-        //Imprimimos el numero
-        //printf("El valor de array_numero[%d] es: %d\n", j, array_numero[j]);
-
-        //Incrementamos el contador
-        i++;
-    }
-
-
-}
-//----------------------------------------------------------------------------------------------------------------------
-// Funcion longitud_array_numero
-//----------------------------------------------------------------------------------------------------------------------
-// Funcion que dice si la longitud del array es n medios o n medios mas uno
-//----------------------------------------------------------------------------------------------------------------------
-// PARAMETROS
-//      tamano_array: tamaño del array del numero de parejas
-//----------------------------------------------------------------------------------------------------------------------
-int longitud_array_numeros(int tamano_array){
-    if(tamano_array%2 == 0){
-        return tamano_array/2;
-    }
-    else{
-        return (tamano_array/2)+1;
-    }
-   
-}
-
 int divide_dos_en_dos(int *numeros_final, int *numeros_inicio, int tam_num){
     int cont=0;
 
-    
-
-    printf("\nTamnum%d\n",tam_num);
 
     for(int i=0;i<tam_num;i++,cont++){
-        printf("\n%d\n",i);
+
     
         if(tam_num%2!=0 && i==0){
             numeros_final[cont]=numeros_inicio[i];
@@ -513,70 +372,28 @@ int divide_dos_en_dos(int *numeros_final, int *numeros_inicio, int tam_num){
 }
 
 
-//----------------------------------------------------------------------------------------------------------------------
-// Funcion imrpime_vector
-//----------------------------------------------------------------------------------------------------------------------
-// Funcion que imprime un vector
-//----------------------------------------------------------------------------------------------------------------------
-// PARAMETROS
-//      array_numero: array que queremos imprimir
-//      tamanio_array: tamaño del array
-//----------------------------------------------------------------------------------------------------------------------
-int imprime_vector(int *array_numero, int tamano_array){
-    int i;
-    //Imprimimos el valor de array_numero
-    printf ("------------------------------\n");
-    printf ("El numero\n");
-    for (i=0; i<tamano_array; i++){
-        printf ("%d", array_numero[i]);
-    }
-    printf ("\n");
-    printf ("\n");
-    printf ("El numero separado por un espacio en cada caracter\n");
-
-    for (i=0; i<tamano_array; i++){
-        printf ("%d ", array_numero[i]);
-    }
-    printf ("\n");
-}
-
 void resta_arrays(int *array1,int *array2,int cont, int tam_doble_sol)
 {
     int i,j,resto=0;
     
     int aux1[cont];
     int aux2[cont];
-    /*
-    for(int i=0,j=cont-1;i<cont;i++,j--)
-    {
-        aux1[i]=array1[j];
-        printf("aux1:%d",aux1[i]);
-    }
-    */
+    
     for(int i=0,j=cont-1;i<cont;i++,j--)
     {
         aux2[i]=array2[j];
-        printf("aux2:%d",aux2[i]);
+        
     }
-  /*  
-    for(int i=0;i<cont;i++)
-    {
-       array1[i]= aux1[i];
-    }
-    for(int i=0;i<cont;i++)
-    {
-       array2[i]= aux2[i];
-    }
-    */
+
 
 
     for(i=cont-1,j=tam_doble_sol-1;i>=0 ;i--,j--)
     {
 
-        //printf("\ni--%d\nj---%d\n",i,j);
+   
         if(j>=0)
         {
-            printf("%d-%d\n",array1[i],array2[j]);
+           
 
             if(array1[i]<array2[j])
             {
@@ -588,21 +405,12 @@ void resta_arrays(int *array1,int *array2,int cont, int tam_doble_sol)
             else{
                 array1[i]=array1[i]-array2[j];
                 resto=0;
-                //printf("***%d",array1[i]);
+               
             }
-            /*    
-            if(array1[i]<0){
-                array1[i]=array1[i]+10;
-                //printf("%d",array1[i]);
-                resto=1;
-            }
-            else{
-                resto=0;
-            }
-            */
+   
         }
         else{
-            //printf("***%d",array1[i]);
+            
             array1[i]=array1[i];
         }
         
@@ -611,7 +419,19 @@ void resta_arrays(int *array1,int *array2,int cont, int tam_doble_sol)
     
 }
 
-
+//----------------------------------------------------------------------------------------------------------------------
+// Funcion hacer_raizv2
+//----------------------------------------------------------------------------------------------------------------------
+// Funcion que hace el algoritmo
+//----------------------------------------------------------------------------------------------------------------------
+// PARAMETROS
+//      cont: contador que tiene la informacion de cuantas interacciones del algoritmo se tiene que hacer
+//      numero_array: vector que contiene el numero pasado por parametro
+//      resto: vector de enteros que sera el vector en que guardarenos el resto de la raiz
+//      solucion: vector de enteros que sera el vector en que guardarenos la solucion de la raiz
+//      tam_resto: entero que el tamaño de del resto
+//      tam_sol: entero que el tamaño de de la solucion
+//----------------------------------------------------------------------------------------------------------------------
 
 int hacer_raizv2(int *cont,int *numero_array,int numero_parejas,int *resto,int *solucion,int *tam_resto,int *tam_sol)
 {
@@ -619,95 +439,59 @@ int hacer_raizv2(int *cont,int *numero_array,int numero_parejas,int *resto,int *
 
     doble_solucion= (int*) malloc(sizeof(int)*1000000);
 
-
+    //Este es el caso trivial en el que es el primer numero o numeros en el cual podemos hacer la primera cuenta para ir sacando las demas
     if(*cont==0){
 
-        printf("\nCont1:%d\n", *cont);
-        
-        //caso trivial
-
-        printf("\nnumero_array: %d\n", numero_array[*cont]);
-        printf("\nresto: %d\n",resto[0]);
 
         resto[0]=numero_array[*cont];
 
-        printf("!!!\n");
-
-        //fprintf(stderr,"\nresto:%d\n", resto[0]);
+//Se busca un numero que multiplicado por el mismo de lo mismo o menos que el resto  
         solucion[0]=busca_cercano(resto[0]);
+
+//Se aumenta el tamaño de la solucion
         *tam_sol=*tam_sol+1;
-        
-        //fprintf(stderr,"\nresto:%d\n", resto[0]);
 
-
-      // fprintf(stderr,"\nsolucion:%d\n", solucion[0]);
+//Se calcula el cuadrado de la solucion
         cuadrado = calcula_cuadrado(solucion[0]);
-        //fprintf(stderr,"\nsolucion:%d\n", solucion[0]);
 
-      // fprintf(stderr,"\ncuadrado:%d\n", cuadrado);
-
-         
+//Se resta el resto al cuadrado de la solucion y se obtiene el nuevo resto
         resto[0]=resto[0]-cuadrado;
 
-        
+//Se aumenta el tamaño del resto  
         *tam_resto=*tam_resto+1;
 
+//Se quita los posibles 0
         if(resto[0]==0)
         {
             *tam_resto=*tam_resto=*tam_resto-1;
         }
         
         
-        
-        fprintf(stderr,"\nresto: %d\nsolucion: %d\n", resto[0],solucion[0]);
-
         *cont=*cont+1;
         return 1;
 
     }  
     else{
-        printf("cont2:%d\n",*cont);
+        //Se decrementa el contador hasta llegar a 0 que es el caso trivial
         *cont=*cont-1;
-
-        hacer_raizv2(cont, numero_array,numero_parejas,resto,solucion,tam_resto,tam_sol);
-        printf("cont4:%d\n",*cont);
-
-        printf("\ntam_sol%d\n",*tam_sol);
-        printf("\ntam_resto%d\n",*tam_resto);
         
+        //Llamada recursiva
+        hacer_raizv2(cont, numero_array,numero_parejas,resto,solucion,tam_resto,tam_sol);
 
+
+    //calcula el doble de solucion
         tam_doble_solucion=multiplicar_array(solucion,doble_solucion,*tam_sol,2);
         
-        //resto= (int*) malloc(sizeof(int)*2);
         
-
+        //Si el resto es mayor que 9 divide el numero en 2 y se aumenta el resto
         resto[*tam_resto]=numero_array[*cont]/10;
         *tam_resto=*tam_resto+1;
         resto[*tam_resto]=numero_array[*cont]%10;
         *tam_resto=*tam_resto+1;
 
-        for(int i=0;i<*tam_resto;i++)
-        {
-            printf("\nRESTO: %d\n",resto[i]);
-        }
-        for(int i=0;i<*tam_sol;i++)
-        {
-            printf("\nSOL: %d\n",solucion[i]);
-        }
 
-        
-
-
+        //Se busca el numero inferior mas cercano al resto 
         n= busca_n(doble_solucion,resto,tam_doble_solucion,*tam_resto);
-
-        printf("\nBusca n%d\n",n);
-        
-
-        
-
-        //solucion= (int*) malloc(sizeof(int)*1);
-    
-
         
 
         solucion[*tam_sol]=n;
@@ -717,22 +501,14 @@ int hacer_raizv2(int *cont,int *numero_array,int numero_parejas,int *resto,int *
         tam_doble_solucion++;
 
         
-
+        //Se calcula el numero inferior mas cercano al resto 
         tam_doble_solucion=multiplicar_array(doble_solucion,doble_solucion,tam_doble_solucion,n);
 
-
-        //printf("\n******resto: %d\n",*tam_resto);
-        /*for(int i=0;i<tam_resto;i++){
-            printf("\n******resto: %d\n",resto[i]);
-        }
-        for(int i=0;i<tam_doble_solucion;i++){
-            printf("\n******Doble sol: %d\n",doble_solucion[i]);
-        }*/
-
-
+        //Se resta el resto con dicho numero para saber el nuevo resto
         resta_arrays(resto,doble_solucion,*tam_resto,tam_doble_solucion);
 
 
+        //Se quitan los 0 delante del resto
         while(resto[i]==0)
         {
             for(j=0;j<*tam_resto;j++)
@@ -742,21 +518,9 @@ int hacer_raizv2(int *cont,int *numero_array,int numero_parejas,int *resto,int *
             *tam_resto=*tam_resto-1;
         }
 
-         for(int i=0;i<*tam_resto;i++)
-        {
-            printf("\n----------RESTO---------: %d\n",resto[i]);
-        }
-        for(int i=0;i<*tam_sol;i++)
-        {
-            printf("\n-----------SOL---------: %d\n",solucion[i]);
-        }
-        printf("!!!\n");
-        printf("cont3:%d\n",*cont);
 
         *cont=*cont+1;
-         printf("cont3:%d\n",*cont);
 
-        printf("!!!\n");
         
         return 1;        
         
@@ -764,7 +528,17 @@ int hacer_raizv2(int *cont,int *numero_array,int numero_parejas,int *resto,int *
 
 }
 
-
+//----------------------------------------------------------------------------------------------------------------------
+// Funcion mostrar_raiz
+//----------------------------------------------------------------------------------------------------------------------
+// Funcion que muestra la solucion
+//----------------------------------------------------------------------------------------------------------------------
+// PARAMETROS
+//      resto: resto final
+//      solucion: solucion final
+//      tam_resto:tamaño del vector que contiene al resto
+//      tam_sol:tamaño del vector que contiene la solucion
+//----------------------------------------------------------------------------------------------------------------------
 void mostrar_solucion(int *resto,int *solucion,int *tam_resto,int *tam_sol)
 {
     int i;
@@ -817,42 +591,26 @@ int main (int argc, char *argv[])
     int numero_parametro[size];
     int *numero_parametro2;
 
-    //printf("\n%ld\n",size);
-    //printf("\n%d\n",argv[1][0]-'0');
 
 
     for(int i=0;i<size;i++){
         numero_parametro[i]=argv[1][i]-'0';
     }
-
-/*
-    int array1[6]={4,5,0,9,8,0};
-    int array2[6]={4,2,1,5,9,6};
-    
-    resta_arrays(array1,array2,6,6);
-    for(int i=0;i<6;i++)
-    {
-        printf("\nSolucion: %d\n",array1[i]);
-    }
-    for(int i=0;i<3;i++){
-        printf("\nSol resta:%d\n",array1[i]);
-    }
-    
-    int tam_sol1=multiplicar_array(numero_parametro,solucion,size,6);
-    for(int i=0;i<tam_sol1;i++){
-        printf("\n%d\n",solucion[i]);
-    }
-*/
     presentacion();
-    fprintf (stdout, "Se procede al calculo.\n");
+
+    printf("\nEl numero que se va calcular es:\n");
+    for(int i=0;i<size;i++){
+        printf("%d",numero_parametro[i]);
+    }
+
+    
+    fprintf (stdout, "\n\nSe procede al calculo.\n");
 
     numero_parametro2 = (int*) malloc(sizeof(int)*size);
 
-    printf("!!!\n");
     divide_dos_en_dos(numero_parametro2, numero_parametro,size);
 
     
-    printf("!!!\n");
 
     if(size%2!=0){
         size=size/2+1;
@@ -861,21 +619,15 @@ int main (int argc, char *argv[])
         size=size/2;
     }
 
-     printf("Size:%ld\n",size);
-    for(int i=0;i<size;i++){
-        printf("\n%d---\n",numero_parametro2[i]);
-    }
     
     *cont=(int) size-1;
     
-    printf("Cont main: %d\n", *cont);
     
 
     hacer_raizv2(cont, numero_parametro2,size,resto,solucion,tam_resto,tam_sol);
 
     
- 
-    printf("Cont main2: %d\n", *cont);
+
 
     mostrar_solucion(resto,solucion,tam_resto,tam_sol);
 
