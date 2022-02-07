@@ -274,18 +274,16 @@ int dividir_parejas(unsigned long long numero, int *numero_array,int tamano_arra
 int busca_cercano(unsigned long long numero){
     int i;
     int num=numero;
-    //printf ("\n%llu\n",(*numero));
     for(i=0; i<=num; i++){
         //printf ("\n%d\n",i);
         if((i*i) > num && num != 1){
-            //printf ("\n%d\n",i);
+
             return i-1;
         }
         else if(num == 1){
             return 1;
         }            
     }
-    //printf("No devuelve nada");  
 }
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -618,6 +616,7 @@ int main (int argc, char *argv[])
     int  *numero_array, tamano_array, *numero_array_temporal,*cont,*tam_resto,*tam_sol;
     int  *resto,*solucion;
 
+    //Guarda memoria para las siguientes variables
     resto= (int*) malloc(sizeof(int)*100000);
     solucion= (int*) malloc(sizeof(int)*1000000);
     cont= malloc(sizeof(int)*1);
@@ -629,17 +628,19 @@ int main (int argc, char *argv[])
     *tam_sol=0;
     
 
-
+//Recogemos el tamaño del parametro
     size_t size = strlen(argv[1]);
 
     int numero_parametro[size];
     int *numero_parametro2;
 
-
+//Guardamos cada numero del parametro como un array
 
     for(int i=0;i<size;i++){
         numero_parametro[i]=argv[1][i]-'0';
     }
+
+
     presentacion();
 
     printf("\nEl numero que se va calcular es:\n");
@@ -649,6 +650,8 @@ int main (int argc, char *argv[])
 
     
     fprintf (stdout, "\n\nSe procede al calculo.\n");
+
+    //Dividimos el array del parametro en numeros de dos cifras 
 
     numero_parametro2 = (int*) malloc(sizeof(int)*size);
 
