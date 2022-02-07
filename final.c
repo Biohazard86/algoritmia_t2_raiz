@@ -301,23 +301,38 @@ int calcula_cuadrado(unsigned long long n){
 }
 
 
+
+
+//----------------------------------------------------------------------------------------------------------------------
+// Funcion busca_n
+//----------------------------------------------------------------------------------------------------------------------
 //Buscamos un numero que sea de la forma solucion*2 _ x_ menor que el resto
+//----------------------------------------------------------------------------------------------------------------------
+// PARAMETROS
+//      doble_solucion: array que contiene el doble de la solucion
+//      resto: array que contiene el resto
+//      tam_doble_solucion: numero que contiene el tamaño del doble de la solucion
+//      tam_doble_solucion: numero que contiene el tamaño del resto
+//----------------------------------------------------------------------------------------------------------------------
 int busca_n(int *doble_solucion, int *resto,int tam_doble_solucion,int tam_resto){
     int i,j, *sol,tam_sol, busca_sol;
 
+
+//Guardamos memoria para el array de enteros que contiene la solucion
     sol= (int*) malloc(sizeof(int)*10000000);
 
     
-   
+//Comprobamos todos los numeros del 0 al 9 
     for(i=0; i<10; i++){
 
         busca_sol=0;
 
  
-        
+        //Guardamos el numero del contador del bucle en la siguiente poscion de la variable 
         doble_solucion[tam_doble_solucion]=i;
 
-
+        //Multiplicamos ese array por ese numero del bucle y comprobamos que si la solucion de la multiplicacion es mayor que el resto entonces 
+        //se coge el numero anterior a este
         tam_sol=multiplicar_array(doble_solucion,sol,tam_doble_solucion+1,i);
  
         if(tam_sol>tam_resto){
@@ -350,6 +365,19 @@ int busca_n(int *doble_solucion, int *resto,int tam_doble_solucion,int tam_resto
 }
 
 
+
+
+//----------------------------------------------------------------------------------------------------------------------
+// Funcion divide_dos_en_dos
+//----------------------------------------------------------------------------------------------------------------------
+//divide en dos el numero pasado por parametro
+//----------------------------------------------------------------------------------------------------------------------
+// PARAMETROS
+//      numeros_final: array que contiene el numero dividido en numeros de dos
+//      numeros_inicio: array de numeros que le pasas como parametro
+//      tam_num: tamaño del array del numero que le pasas como parametro
+//----------------------------------------------------------------------------------------------------------------------
+
 int divide_dos_en_dos(int *numeros_final, int *numeros_inicio, int tam_num){
     int cont=0;
 
@@ -372,6 +400,20 @@ int divide_dos_en_dos(int *numeros_final, int *numeros_inicio, int tam_num){
 }
 
 
+
+
+//----------------------------------------------------------------------------------------------------------------------
+// Funcion resta_arrays
+//----------------------------------------------------------------------------------------------------------------------
+// Funcion resta dos vectores de enteros
+//----------------------------------------------------------------------------------------------------------------------
+// PARAMETROS
+//      array1: vector de enteros que seran el minuendo de la resta
+//      array2: vector de enteros que seran el sustraendo de la resta
+//      cont: entero que el tamaño de array1
+//      tam_doble_sol: entero que el tamaño de array2
+//----------------------------------------------------------------------------------------------------------------------
+
 void resta_arrays(int *array1,int *array2,int cont, int tam_doble_sol)
 {
     int i,j,resto=0;
@@ -385,7 +427,9 @@ void resta_arrays(int *array1,int *array2,int cont, int tam_doble_sol)
         
     }
 
-
+//Se hace un blucle hasta llegar al limite de la varible del sustrayendo, una vez llegado hasta ahí los numeros del minuendo son iguales que los de la solucion
+//Se hace que si los numeros son menores que si el numero del minuendo es menor que el numero del sustrayendo se le sume 10 al numero del minuendo y se le resta 
+//una unidad al siguiente numero del minuendo
 
     for(i=cont-1,j=tam_doble_sol-1;i>=0 ;i--,j--)
     {
