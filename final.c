@@ -597,6 +597,7 @@ void mostrar_solucion(int *resto,int *solucion,int *tam_resto,int *tam_sol)
     {
         printf("%d",resto[i]);
     }
+    printf("\n\n");
 }
 
 
